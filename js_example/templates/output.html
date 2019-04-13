@@ -2,38 +2,89 @@
 
 {% block script %}
 
-    <h4>Step 3 : Validated Outputs</h4>
-    <!-- predSequence -->
-    <table style="width: 100%;" border="0" cellpadding="2">
-        <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
-            <tr>
-                <td style="text-align: left;">
-                        <div style="text-decoration: none;">Predicted Output Sequence</div>
-                </td>
-                <td style="width: 10%; text-align: center; color:#f9f9f9;"><button onclick="copyToClipboard()">copy</button></td>
-            </tr>
-        </tbody>
-    </table>
-    <div style="width:100%;">
-        <textarea class="predSequence" name="predSequence" id="predSequence" rows="5" style="width:100%"></textarea>
-    </div>
+<h4>Step 3 : Validated Outputs</h4>
+<!-- predSequence -->
+<table style="width: 100%;" border="0" cellpadding="2">
+    <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
+        <tr>
+            <td style="text-align: left;">
+                <div style="text-decoration: none;">Predicted Output Sequence</div>
+            </td>
+            <td style="width: 10%; text-align: center; color:#f9f9f9;"><button
+                    onclick="copyToClipboardPS()">copy</button></td>
+        </tr>
+    </tbody>
+</table>
+<div style="width:100%;">
+    <textarea readonly class="predSequence" name="predSequence" id="predSequence" rows="5"
+        style="width:100%; background-color: white"></textarea>
+</div>
+<!-- constraint -->
+<table style="width: 100%;" border="0" cellpadding="2">
+    <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
+        <tr>
+            <td style="text-align: left;">
+                <div style="text-decoration: none;">Constraints</div>
+            </td>
+            <td style="width: 10%; text-align: center; color:#f9f9f9; "><button
+                    onclick="copyToClipboardCS()">copy</button></td>
+        </tr>
+    </tbody>
+</table>
+<div style="width:100%;">
+    <textarea readonly class="constraint" name="constraint" id="constraint" rows="5"
+        style="width:100%; background-color: white"></textarea>
+</div>
+<!-- ensemble diversity -->
+<table style="width: 100%;" border="0" cellpadding="3">
+    <tbody>
+        <tr>
+            <th style="text-align: left; background-color: rgb(16, 63, 0); color:#f9f9f9;">Parameter</th>
+            <th style="text-align: left; background-color: rgb(16, 63, 0); color:#f9f9f9;">With Contraints</th>
+            <th style="text-align: left; background-color: rgb(16, 63, 0); color:#f9f9f9;">Without Contraints</th>
+        </tr>
+        <tr>
+            <td>Ensemble Diversity</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>MFE</td>
+            <td>4</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>Image</td>
+            <td>6</td>
+            <td>7</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<br>
+<button style=" border-radius: 4px;"><a style=" border-radius: 4px; color:#f9f9f9;"
+        href="{{ url_for('home') }}">Restart</a></button>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
-    function addSubmit(ev) {
-        ev.preventDefault();
-        $.ajax({
-            method: 'POST',
-            url: {{ url_for('home')| tojson }},
-    data: $(this).serialize()
-      }).done(addShow);
-    }
-
     function addShow(data) {
         $('#result').text(data.result);
     }
 
-    function copyToClipboard() {
+    function copyToClipboardPS() {
         var copyTextarea = document.getElementById('predSequence');
+        copyTextarea.select();
+
+        try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Copying text command was ' + msg);
+        } catch (err) {
+            console.log('Oops, unable to copy');
+        }
+    }
+
+    function copyToClipboardCS() {
+        var copyTextarea = document.getElementById('constraint');
         copyTextarea.select();
 
         try {

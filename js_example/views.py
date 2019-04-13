@@ -1,14 +1,14 @@
-from flask import jsonify, render_template, request
+from flask import jsonify, render_template, request, url_for
 
 from js_example import app
 
-@app.route("/home")
+@app.route('/')
 def home():
-    return render_template("home.html")
+    return render_template('home.html')
 
-@app.route("/output")
+@app.route('/output')
 def output():
-    return render_template("output.html")
+    return render_template('output.html')
 
 ''' @app.route('/', defaults={'js': 'plain'})
 @app.route('/<any(plain, jquery, fetch):js>')
