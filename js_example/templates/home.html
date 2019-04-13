@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block script %}
+<form id="Submit">
+    <label>Input Seqeunce <input name="inpSequence"></label><br>
+    <label>Output Sequence <input name="outSequence"></label><br>
+    <input type="submit" value="Submit Job">
+</form>
+<span>= <span id="result"></span></span>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    function addSubmit(ev) {
+        ev.preventDefault();
+        $.ajax({
+            method: 'POST',
+            url: {{ url_for('about')| tojson }},
+    data: $(this).serialize()
+      }).done(addShow);
+    }
+
+    function addShow(data) {
+        $('#result').text(data.result);
+    }
+
+    $('#calc').on('submit', addSubmit);
+</script>
+{% endblock %}
+
+<!-- registration
+input sequence and output sequence (4 options)
+yes gate - hhr
+output - final dot brakcet structure, constraint, 
+ensemble diversity  (with and without constraint), 
+MFE (with and without constraint),
+pictures (with and without) -->

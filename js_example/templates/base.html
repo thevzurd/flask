@@ -1,5 +1,5 @@
 <!doctype html>
-<title>JavaScript Example</title>
+<title>Hammer Head RNA design Prediction using Co-Folding Algorithm</title>
 <link rel="stylesheet" href="https://unpkg.com/sakura.css@1.0.0/css/normalize.css">
 <link rel="stylesheet" href="https://unpkg.com/sakura.css@1.0.0/css/sakura-earthly.css">
 <style>
@@ -11,23 +11,7 @@
   form > * { padding-right: 1em; }
   #result { font-weight: bold; }
 </style>
-<ul>
-  <li><span>Type:</span>
-  <li class="{% if js == 'plain' %}active{% endif %}">
-    <a href="{{ url_for('index', js='plain') }}">Plain</a>
-  <li class="{% if js == 'fetch' %}active{% endif %}">
-    <a href="{{ url_for('index', js='fetch') }}">Fetch</a>
-  <li class="{% if js == 'jquery' %}active{% endif %}">
-    <a href="{{ url_for('index', js='jquery') }}">jQuery</a>
-</ul>
 <hr>
-<p>{% block intro %}{% endblock %}</p>
+<p><h1>Hammer Head RNA design Prediction using Co-Folding Algorithm</h1></p>
 <hr>
-<form id="calc">
-  <label>a <input name="a"></label>
-  <span>+</span>
-  <label>b <input name="b"></label>
-  <input type="submit" value="Calculate">
-</form>
-<span>= <span id="result"></span></span>
 {% block script %}{% endblock %}
