@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block script %}
+
+    <h4>Step 3 : Validated Outputs</h4>
+    <!-- predSequence -->
+    <table style="width: 100%;" border="0" cellpadding="2">
+        <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
+            <tr>
+                <td style="text-align: left;">
+                        <div style="text-decoration: none;">Predicted Output Sequence</div>
+                </td>
+                <td style="width: 10%; text-align: center; color:#f9f9f9;"><button onclick="copyToClipboard()">copy</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="width:100%;">
+        <textarea class="predSequence" name="predSequence" id="predSequence" rows="5" style="width:100%"></textarea>
+    </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    function addSubmit(ev) {
+        ev.preventDefault();
+        $.ajax({
+            method: 'POST',
+            url: {{ url_for('home')| tojson }},
+    data: $(this).serialize()
+      }).done(addShow);
+    }
+
+    function addShow(data) {
+        $('#result').text(data.result);
+    }
+
+    function copyToClipboard() {
+        var copyTextarea = document.getElementById('predSequence');
+        copyTextarea.select();
+
+        try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Copying text command was ' + msg);
+        } catch (err) {
+            console.log('Oops, unable to copy');
+        }
+    }
+
+</script>
+{% endblock %}
+
+<!-- registration
+output - final dot brakcet structure, constraint, 
+ensemble diversity  (with and without constraint), 
+MFE (with and without constraint),
+pictures (with and without) -->

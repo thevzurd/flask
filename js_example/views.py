@@ -6,9 +6,9 @@ from js_example import app
 def home():
     return render_template("home.html")
 
-@app.route("/about")
-def about():
-    return render_template("about.html")
+@app.route("/output")
+def output():
+    return render_template("output.html")
 
 ''' @app.route('/', defaults={'js': 'plain'})
 @app.route('/<any(plain, jquery, fetch):js>')
