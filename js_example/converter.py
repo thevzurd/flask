@@ -1,16 +1,17 @@
 import random
 ## https://www.pluralsight.com/guides/running-shell-commands-with-flask
+## Install Vienna RNA in <virtual environment>/Scripts folder
 import os
 import subprocess
 from js_example import converter as cv
 
 def gen():
-    return(subprocess.Popen("RNAfold -p -d2 --noLP < hhr.txt",
+    return(subprocess.Popen('RNAfold -p -d2 --noLP < hhr.txt',
                             shell=True, stdout=subprocess.PIPE).stdout.read())
 
 
 def gen2():
-    return(subprocess.Popen("RNAfold -p -d2 --noLP -C --enforceConstraint < hhr_constraint.txt",
+    return(subprocess.Popen('RNAfold -p -d2 --noLP -C --enforceConstraint < hhr_constraint.txt',
                             shell=True, stdout=subprocess.PIPE).stdout.read())
 
 
@@ -109,21 +110,23 @@ def convgen(stem2_loop, stem1_side_1):
             f.write("".join(constrain)+"\n")
 
         s = gen()
-        ed1 = s[s.index('ensemble diversity') + 19:]
+        print(s)
+        ed1 = s[s.index(b'ensemble diversity') + 19:]
 
-        mfe1 = s[s.index(' ('):]
-        mfe1 = mfe1[2:mfe1.index(')')]
-        fold1 = s[len(seq)+6:s.index(' (')]
+        mfe1 = s[s.index(b' ('):]
+        mfe1 = mfe1[2:mfe1.index(b')')]
+        fold1 = s[len(seq)+6:s.index(b' (')]
 
         s2 = gen2()
-        mfe2 = s2[s2.index(' ('):]
-        mfe2 = mfe2[2:mfe2.index(')')]
-        fold2 = s2[len(seq)+6:s2.index(' (')]
+        print(s)
+        mfe2 = s2[s2.index(b' ('):]
+        mfe2 = mfe2[2:mfe2.index(b')')]
+        fold2 = s2[len(seq)+6:s2.index(b' (')]
 
         mfe = float(mfe1) - float(mfe2)
 
         ed1 = ed1[:-2]
-        ed2 = s2[s2.index('ensemble diversity') + 19:]
+        ed2 = s2[s2.index(b'ensemble diversity') + 19:]
         ed2 = ed2[:-2]
 
         flag = find_diff(fold1, fold2, len(stem2_loop))
@@ -134,7 +137,7 @@ def convgen(stem2_loop, stem1_side_1):
                 count += 1
 
                 if count == 1:
-                    return True, seq, constrain, conv_output, fold1, fold2, ed1, ed2, mfe1, mfe2
+                    return True, seq, constrain, conv_output, str(fold1), str(fold2), str(ed1), str(ed2), str(mfe1), str(mfe2)
 
         # else:
         #    return False, seq, constrain, conv_output,fold1,fold2,ed1,ed2,mfe1,mfe2

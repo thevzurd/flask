@@ -7,7 +7,7 @@ import json
 
 @app.route('/')
 def home():
-##    main("", "")
+    main("", "")
     return render_template('home.html')
 
 @app.route('/output')
