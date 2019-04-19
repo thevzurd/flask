@@ -1,6 +1,0 @@
-# ignore all object files
-*.o
-
-# ignore all executable programs
-AnalyseDists
-AnalyseSeqs

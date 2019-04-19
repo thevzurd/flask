@@ -1,6 +1,0 @@
-# ignore files that are created by SWIG
-RNA.pm
-RNA_wrap.*
-auto
-version.i
-
