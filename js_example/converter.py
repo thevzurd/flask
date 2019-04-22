@@ -110,7 +110,6 @@ def convgen(stem2_loop, stem1_side_1):
             f.write("".join(constrain)+"\n")
 
         s = gen()
-        print(s)
         ed1 = s[s.index(b'ensemble diversity') + 19:]
 
         mfe1 = s[s.index(b' ('):]
@@ -118,7 +117,6 @@ def convgen(stem2_loop, stem1_side_1):
         fold1 = s[len(seq)+6:s.index(b' (')]
 
         s2 = gen2()
-        print(s)
         mfe2 = s2[s2.index(b' ('):]
         mfe2 = mfe2[2:mfe2.index(b')')]
         fold2 = s2[len(seq)+6:s2.index(b' (')]

@@ -9,58 +9,66 @@
     <li>If output sequence is given, then the prediction considers the constraints to predict the structure.</li>
 </ul>
 <h4>Step 1 : Fill in Input parameters and submit</h4>
-<!-- inSequence -->
-<table style="width: 100%;" border="0" cellpadding="2">
-    <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
-        <tr>
-            <td style="text-align: left;"><label for="inpSequence"></label>
-                <div style="text-decoration: none;">a. Input sequence</div>
-            </td>
-            <td style="width: 10%; text-align: center; color:#f9f9f9;"><button onclick="clearInp()">clear</button></td>
-        </tr>
-    </tbody>
-</table>
-<div style="width:100%;">
-    <textarea name="inpSequence" id="inpSequence" rows="5" style="width:100%"></textarea>
-</div>
-<!-- outSequence -->
-<table style="width: 100%;" border="0" cellpadding="2">
-    <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
-        <tr>
-            <td style="text-align: left;"><label for="outSequence"></label>
-                <div style="text-decoration: none;">b. Output Seqeunce</div>
-            </td>
-            <td style="width: 10%; text-align: center; color:#f9f9f9;"><button onclick="clearOut()">clear</button></td>
-        </tr>
-    </tbody>
-</table>
-<div style="width:100%;">
-    <textarea name="outSequence" id="outSequence" rows="5" style="width:100%"></textarea>
-</div>
-<br>
-<button style=" border-radius: 4px; color:#f9f9f9; border-radius: 4px;" type="submit" onclick="submit()">Submit Job</button>
-<button style=" border-radius: 4px; color:#f9f9f9; background-color: #5e5e5e; border-radius: 4px;"type="reset" onclick="reset()">Reset</button>
+<form name="form" id="form">
+    <!-- inSequence -->
+    <table style="width: 100%;" border="0" cellpadding="2">
+        <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
+            <tr>
+                <td style="text-align: left;"><label for="inpSequence"></label>
+                    <div style="text-decoration: none;">a. Input sequence</div>
+                </td>
+                <td style="width: 10%; text-align: center; color:#f9f9f9;">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="width:100%;">
+        <textarea name="inpSequence" id="inpSequence" rows="5" style="width:100%"></textarea>
+    </div>
+    <!-- outSequence -->
+    <table style="width: 100%;" border="0" cellpadding="2">
+        <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
+            <tr>
+                <td style="text-align: left;"><label for="outSequence"></label>
+                    <div style="text-decoration: none;">b. Output Seqeunce</div>
+                </td>
+                <td style="width: 10%; text-align: center; color:#f9f9f9;">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="width:100%;">
+        <textarea name="outSequence" id="outSequence" rows="5" style="width:100%"></textarea>
+    </div>
+    <br>
+    <input style=" border-radius: 4px; color:#f9f9f9; border-radius: 4px; background-color: rgb(16, 63, 0);"
+        type="submit"></input>
+    <input style=" border-radius: 4px; color:#f9f9f9; background-color: #5e5e5e; border-radius: 4px;"
+        type="reset"></input>
+</form>
+<span id="result"></span>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
-    function submit() {
+    function submit(ev) {
+        ev.preventDefault();
+        $.ajax({
+            method: 'POST',
+            url: '/input',
+            data: $(this).serialize(),
+            success: function (response) {
+                if (response.data == 'success') {
+                    window.location.replace('/output');
+                } else {
+                        alert('there was an error!');
+                }
+            }
+        }).done(showSubmitted());
     }
 
-    function addShow(data) {
-        $('#result').text(data.result);
+    function showSubmitted() {
+        $('#result').text('Processing... Please wait');
     }
 
-    function clearInp() {
-        document.getElementById('inpSequence').value = '';
-    }
-
-    function clearOut() {
-        document.getElementById('outSequence').value = '';
-    }
-
-    function reset() {
-        clearInp();
-        clearOut();
-    }
-
+    $('#form').on('submit', submit);
 </script>
 {% endblock %}

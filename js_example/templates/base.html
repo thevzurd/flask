@@ -4,10 +4,28 @@
 <link rel="stylesheet" href="https://unpkg.com/sakura.css@1.0.0/css/sakura-earthly.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <style>
-  form { display: block; }
-  form > * { padding-right: 1em; }
+  form {
+    display: block;
+  }
+
+  form>* {
+    padding-right: 1em;
+  }
+
+  div#loading {
+    top: 200 px;
+    margin: auto;
+    position: absolute;
+    z-index: 1000;
+    width: 160px;
+    height: 24px;
+    background: url(/static/chromosome-transparent-gif-animation.gif) no-repeat;
+    cursor: wait;
+  }
 </style>
 <hr>
-<p><h1>Hammer Head RNA Design Prediction using Co-Folding Algorithm</h1></p>
+<p>
+  <h1>Hammer Head RNA Design Prediction using Co-Folding Algorithm</h1>
+</p>
 <hr>
 {% block script %}{% endblock %}

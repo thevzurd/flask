@@ -1,30 +1,24 @@
-from flask import jsonify, render_template, request, url_for
-
+from flask import jsonify, render_template, request, url_for, make_response, redirect
+# https://stackoverflow.com/questions/42406516/python-flask-render-template-html-did-not-render-correctly
+# https://stackoverflow.com/questions/48015074/flask-render-template-doesnt-work-on-ajax-post
 from js_example import app
 from js_example import converter as cv
 import random
 import json
 
-@app.route('/')
-def home():
-    main("", "")
-    return render_template('home.html')
-
-@app.route('/output')
-def output():
-    return render_template('output.html')
 
 ''' @app.route('/', defaults={'js': 'plain'})
 @app.route('/<any(plain, jquery, fetch):js>')
 def index(js):
     return render_template('{0}.html'.format(js), js=js) '''
-''' 
-
+'''
 @app.route('/add', methods=['POST'])
 def add():
     a = request.form.get('a', 0, type=float)
     b = request.form.get('b', 0, type=float)
     return jsonify(result=a + b) '''
+
+
 def main(inp, out):
     bases = ['A', 'C', 'U', 'G']
     if not inp:
@@ -58,3 +52,21 @@ def main(inp, out):
     print('>2')
     print(seq)
     print(fold2)
+
+
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+
+@app.route('/input', methods=['POST'])
+def input():
+    inp = request.form.get('inpSequence', '', type=str)
+    out = request.form.get('outSequence', '', type=str)
+    main(inp, out)
+    return jsonify({'data': 'success'})
+
+
+@app.route('/output')
+def output():
+    return render_template('output.html')
