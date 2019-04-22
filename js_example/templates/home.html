@@ -56,8 +56,8 @@
             url: '/input',
             data: $(this).serialize(),
             success: function (response) {
-                if (response.data == 'success') {
-                    window.location.replace('/output');
+                if (response.status == 'success') {
+                    window.location.replace('/output/' + response.jobID);
                 } else {
                         alert('there was an error!');
                 }

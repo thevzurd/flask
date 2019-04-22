@@ -5,6 +5,7 @@ from js_example import app
 from js_example import converter as cv
 import random
 import json
+import time
 
 
 ''' @app.route('/', defaults={'js': 'plain'})
@@ -43,7 +44,11 @@ def main(inp, out):
     data['Input'] = "".join(inp)
     data['Output'] = "".join(out)
 
-    with open('output.json', 'w') as f:
+    timeStamp = str(int(time.time()))
+    outputFileName = "J" + timeStamp
+    print(outputFileName)
+
+    with open(outputFileName + '.json', 'w') as f:
         json.dump(data, f)
 
     print('>1')
@@ -52,6 +57,7 @@ def main(inp, out):
     print('>2')
     print(seq)
     print(fold2)
+    return jsonify({'status': 'success', 'jobID' : outputFileName })
 
 
 @app.route('/')
@@ -63,10 +69,15 @@ def home():
 def input():
     inp = request.form.get('inpSequence', '', type=str)
     out = request.form.get('outSequence', '', type=str)
-    main(inp, out)
-    return jsonify({'data': 'success'})
+    return main(inp, out)
 
 
-@app.route('/output')
-def output():
-    return render_template('output.html')
+@app.route('/output/<jobId>')
+def output(jobId):
+    with open( jobId + '.json', 'r') as f:
+        try:
+            fl =f.readlines()
+            for x in fl:
+                print(x)
+            return render_template('output.html')
+        except : return 404
