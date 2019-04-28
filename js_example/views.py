@@ -7,19 +7,6 @@ import random
 import json
 import time
 
-
-''' @app.route('/', defaults={'js': 'plain'})
-@app.route('/<any(plain, jquery, fetch):js>')
-def index(js):
-    return render_template('{0}.html'.format(js), js=js) '''
-'''
-@app.route('/add', methods=['POST'])
-def add():
-    a = request.form.get('a', 0, type=float)
-    b = request.form.get('b', 0, type=float)
-    return jsonify(result=a + b) '''
-
-
 def main(inp, out):
     bases = ['A', 'C', 'U', 'G']
     if not inp:
@@ -30,34 +17,11 @@ def main(inp, out):
         l = random.randint(10, 20)
         out = [random.choice(bases) for _ in range(l)]
 
-    _, seq, constrain, conv_output, fold1, fold2, ed1, ed2, mfe1, mfe2 = \
-        cv.convgen(inp, out)
+    outputFileName = "J" + str(int(time.time()))
 
-    data = {}
-    data['Sequence'] = seq
-    data['Inactive'] = fold1
-    data['Inactive MFE'] = mfe1
-    data['Inactive ED'] = ed1
-    data['Active'] = fold2
-    data['Active MFE'] = mfe2
-    data['Active ED'] = ed2
-    data['Input'] = "".join(inp)
-    data['Output'] = "".join(out)
+    cv.convgen(inp, out, outputFileName)
 
-    timeStamp = str(int(time.time()))
-    outputFileName = "J" + timeStamp
-    print(outputFileName)
-
-    with open(outputFileName + '.json', 'w') as f:
-        json.dump(data, f)
-
-    print('>1')
-    print(seq)
-    print(fold1)
-    print('>2')
-    print(seq)
-    print(fold2)
-    return jsonify({'status': 'success', 'jobID' : outputFileName })
+    return jsonify({'status': 'success', 'jobID': outputFileName})
 
 
 @app.route('/')
@@ -74,10 +38,19 @@ def input():
 
 @app.route('/output/<jobId>')
 def output(jobId):
-    with open( jobId + '.json', 'r') as f:
+    with open(jobId + '.output', 'r') as f:
         try:
             fl =f.readlines()
-            for x in fl:
-                print(x)
-            return render_template('output.html')
-        except : return 404
+            sequence = fl[0].replace('\n','')
+            inactive = fl[1].replace('\n','')
+            inactiveMFE = fl[2].replace('\n','')
+            inactiveED = fl[3].replace('\n','')
+            active = fl[4].replace('\n','')
+            activeMFE = fl[5].replace('\n','')
+            activeED = fl[6].replace('\n','')
+            inputSeq =  fl[7].replace('\n','')
+            outputSeq = fl[8].replace('\n','')
+            f.close()
+            return render_template('output.html', sequence=sequence, inactive=inactive,inactiveMFE=inactiveMFE,inactiveED=inactiveED,active=active,activeMFE=activeMFE,activeED=activeED,inputSeq=inputSeq,outputSeq=outputSeq)
+        except:
+            return 404

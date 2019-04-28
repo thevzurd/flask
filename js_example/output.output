@@ -1,0 +1,12 @@
+>seq1
+GCUACCCCGCAUAGGGAAGCUGAUGAGGCACACGUCCUCCUUGCUGGGCGUGCCGAAACGGUACGCCCAGGUACCGUACUUCCCUAUGCGGGGUAGC
+(((((((((((((((((((.....((((.......))))....((((((((((((...))))))))))))........))))))))))))))))))) (-64.90)
+(((((((((((((((((((..,,.(((((....).)))).,,.((((((((((((...))))))))))))........))))))))))))))))))) [-66.81]
+(((((((((((((((((((.....(((((....).))))....((((((((((((...))))))))))))........))))))))))))))))))) {-65.90 d=2.35}
+ frequency of mfe structure in ensemble 0.0451382; ensemble diversity 4.00  
+>seq1
+GCUACCCCGCAUAGGGAAGCUGAUGAGGCACACGUCCUCCUUGCUGGGCGUGCCGAAACGGUACGCCCAGGUACCGUACUUCCCUAUGCGGGGUAGC
+(((((((((((((((((((.......(((((..................)))))...(((((((......))))))).))))))))))))))))))) (-55.70)
+(((((((((((((((((((.......(((((..................)))))...(((((((......))))))).))))))))))))))))))) [-55.81]
+(((((((((((((((((((.......(((((..................)))))...(((((((......))))))).))))))))))))))))))) {-55.70 d=0.20}
+ frequency of mfe structure in ensemble 0.841292; ensemble diversity 0.38  

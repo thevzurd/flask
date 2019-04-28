@@ -91,7 +91,7 @@ def find_diff(fold1, fold2, l):
         return False
 
 
-def convgen(stem2_loop, stem1_side_1):
+def convgen(stem2_loop, stem1_side_1, outputFileName):
     count = 0
 
     if os.path.exists("hhr_out.txt"):
@@ -109,22 +109,24 @@ def convgen(stem2_loop, stem1_side_1):
             f.write(seq+'\n')
             f.write("".join(constrain)+"\n")
 
-        s = gen()
-        ed1 = s[s.index(b'ensemble diversity') + 19:]
+        g = gen()
+        s = str(g, encoding='utf-8', errors='strict')
+        ed1 = s[s.index('ensemble diversity') + 19:]
 
-        mfe1 = s[s.index(b' ('):]
-        mfe1 = mfe1[2:mfe1.index(b')')]
-        fold1 = s[len(seq)+6:s.index(b' (')]
+        mfe1 = s[s.index(' ('):]
+        mfe1 = mfe1[2:mfe1.index(')')]
+        fold1 = s[len(seq)+9:s.index(' (')]
 
-        s2 = gen2()
-        mfe2 = s2[s2.index(b' ('):]
-        mfe2 = mfe2[2:mfe2.index(b')')]
-        fold2 = s2[len(seq)+6:s2.index(b' (')]
+        g2 = gen2()
+        s2 = str(g2, encoding='utf-8', errors='strict')
+        mfe2 = s2[s2.index(' ('):]
+        mfe2 = mfe2[2:mfe2.index(')')]
+        fold2 = s2[len(seq)+9:s2.index(' (')]
 
         mfe = float(mfe1) - float(mfe2)
 
         ed1 = ed1[:-2]
-        ed2 = s2[s2.index(b'ensemble diversity') + 19:]
+        ed2 = s2[s2.index('ensemble diversity') + 19:]
         ed2 = ed2[:-2]
 
         flag = find_diff(fold1, fold2, len(stem2_loop))
@@ -135,7 +137,18 @@ def convgen(stem2_loop, stem1_side_1):
                 count += 1
 
                 if count == 1:
-                    return True, seq, constrain, conv_output, str(fold1), str(fold2), str(ed1), str(ed2), str(mfe1), str(mfe2)
+                    with open(outputFileName +'.output', 'w') as fl:
+                            fl.write(seq+"\n")
+                            fl.write(fold1+"\n")
+                            fl.write(ed1+"\n")
+                            fl.write(mfe1+"\n")
+                            fl.write(fold2+"\n")
+                            fl.write(ed2+"\n")
+                            fl.write(mfe2+"\n")
+                            fl.write("".join(stem2_loop)+"\n")
+                            fl.write("".join(stem1_side_1))
+                    fl.close()
+                    return True
 
         # else:
         #    return False, seq, constrain, conv_output,fold1,fold2,ed1,ed2,mfe1,mfe2
