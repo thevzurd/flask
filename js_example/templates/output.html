@@ -2,97 +2,101 @@
 
 {% block script %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fornac.css')}}" media="screen" />
-<h4>Step 3 : Validated Outputs</h4>
-<!-- input/output -->
-<table style="width: 100%;" border="0" cellpadding="2">
-    <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
-        <tr>
-            <td style="text-align: left;">
-                <div style="text-decoration: none;">Input Sequence</div>
-            </td>
-            <td style="width: 10%; text-align: center; color:#f9f9f9;"></td>
-        </tr>
-    </tbody>
-</table>
-<div style="width:100%;">
-    <textarea readonly class="inpSequence" name="inpSequence" id="inpSequence" rows="5"
-        style="width:100%; background-color: white">{{  inputSeq  }}</textarea>
+<div class="form-header">
+    <h4>Step 3 : Validated Outputs</h4>
 </div>
-<table style="width: 100%;" border="0" cellpadding="2">
-    <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
-        <tr>
-            <td style="text-align: left;">
-                <div style="text-decoration: none;">Output Sequence</div>
-            </td>
-            <td style="width: 10%; text-align: center; color:#f9f9f9;"></td>
-        </tr>
-    </tbody>
-</table>
-<div style="width:100%;">
-    <textarea readonly class="outSequence" name="outSequence" id="outSequence" rows="5"
-        style="width:100%; background-color: white">{{  outputSeq   }}</textarea>
+<div class="form-content">
+    <!-- input/output -->
+    <table style="width: 100%;" border="0" cellpadding="2">
+        <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
+            <tr>
+                <td style="text-align: left;">
+                    <div style="text-decoration: none;">Input Sequence</div>
+                </td>
+                <td style="width: 10%; text-align: center; color:#f9f9f9;"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="width:100%;">
+        <textarea readonly class="inpSequence" name="inpSequence" id="inpSequence" rows="5"
+            style="width:100%; background-color: white">{{  inputSeq  }}</textarea>
+    </div>
+    <table style="width: 100%;" border="0" cellpadding="2">
+        <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
+            <tr>
+                <td style="text-align: left;">
+                    <div style="text-decoration: none;">Output Sequence</div>
+                </td>
+                <td style="width: 10%; text-align: center; color:#f9f9f9;"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="width:100%;">
+        <textarea readonly class="outSequence" name="outSequence" id="outSequence" rows="5"
+            style="width:100%; background-color: white">{{  outputSeq   }}</textarea>
+    </div>
+    <!-- predSequence -->
+    <table style="width: 100%;" border="0" cellpadding="2">
+        <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
+            <tr>
+                <td style="text-align: left;">
+                    <div style="text-decoration: none;">Predicted Output Sequence</div>
+                </td>
+                <td style="width: 10%; text-align: center; color:#f9f9f9;"><button
+                        onclick="copyToClipboardPS()">copy</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="width:100%;">
+        <textarea readonly class="predSequence" name="predSequence" id="predSequence" rows="5"
+            style="width:100%; background-color: white">{{ sequence }}</textarea>
+    </div>
+    <!-- constraint -->
+    <table style="width: 100%;" border="0" cellpadding="2">
+        <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
+            <tr>
+                <td style="text-align: left;">
+                    <div style="text-decoration: none;">Constraints</div>
+                </td>
+                <td style="width: 10%; text-align: center; color:#f9f9f9; "><button
+                        onclick="copyToClipboardCS()">copy</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="width:100%;">
+        <textarea readonly class="constraint" name="constraint" id="constraint" rows="5"
+            style="width:100%; background-color: white"></textarea>
+    </div>
+    <!-- ensemble diversity -->
+    <table style="width: 100%;" border="0" cellpadding="3">
+        <tbody>
+            <tr>
+                <th style="text-align: left; background-color: rgb(16, 63, 0); color:#f9f9f9;">Parameter</th>
+                <th style="text-align: left; background-color: rgb(16, 63, 0); color:#f9f9f9;">With Contraints</th>
+                <th style="text-align: left; background-color: rgb(16, 63, 0); color:#f9f9f9;">Without Contraints</th>
+            </tr>
+            <tr>
+                <td>Ensemble Diversity</td>
+                <td> {{activeED}} </td>
+                <td>{{inactiveED}}</td>
+            </tr>
+            <tr>
+                <td>MFE</td>
+                <td>{{ activeMFE }}</td>
+                <td>{{ inactiveMFE }}</td>
+            </tr>
+            <tr>
+                <td>Image</td>
+                <td id="active">{{active}}</td>
+                <td id="inactive">{{inactive}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <button style=" border-radius: 4px;"><a style=" border-radius: 4px; color:#f9f9f9;"
+            href="{{ url_for('home') }}">Restart</a></button>
 </div>
-<!-- predSequence -->
-<table style="width: 100%;" border="0" cellpadding="2">
-    <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
-        <tr>
-            <td style="text-align: left;">
-                <div style="text-decoration: none;">Predicted Output Sequence</div>
-            </td>
-            <td style="width: 10%; text-align: center; color:#f9f9f9;"><button
-                    onclick="copyToClipboardPS()">copy</button></td>
-        </tr>
-    </tbody>
-</table>
-<div style="width:100%;">
-    <textarea readonly class="predSequence" name="predSequence" id="predSequence" rows="5"
-        style="width:100%; background-color: white">{{ sequence }}</textarea>
-</div>
-<!-- constraint -->
-<table style="width: 100%;" border="0" cellpadding="2">
-    <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
-        <tr>
-            <td style="text-align: left;">
-                <div style="text-decoration: none;">Constraints</div>
-            </td>
-            <td style="width: 10%; text-align: center; color:#f9f9f9; "><button
-                    onclick="copyToClipboardCS()">copy</button></td>
-        </tr>
-    </tbody>
-</table>
-<div style="width:100%;">
-    <textarea readonly class="constraint" name="constraint" id="constraint" rows="5"
-        style="width:100%; background-color: white"></textarea>
-</div>
-<!-- ensemble diversity -->
-<table style="width: 100%;" border="0" cellpadding="3">
-    <tbody>
-        <tr>
-            <th style="text-align: left; background-color: rgb(16, 63, 0); color:#f9f9f9;">Parameter</th>
-            <th style="text-align: left; background-color: rgb(16, 63, 0); color:#f9f9f9;">With Contraints</th>
-            <th style="text-align: left; background-color: rgb(16, 63, 0); color:#f9f9f9;">Without Contraints</th>
-        </tr>
-        <tr>
-            <td>Ensemble Diversity</td>
-            <td> {{activeED}} </td>
-            <td>{{inactiveED}}</td>
-        </tr>
-        <tr>
-            <td>MFE</td>
-            <td>{{ activeMFE }}</td>
-            <td>{{ inactiveMFE }}</td>
-        </tr>
-        <tr>
-            <td>Image</td>
-            <td id="active">{{active}}</td>
-            <td id="inactive">{{inactive}}</td>
-        </tr>
-    </tbody>
-</table>
-<br>
-<br>
-<button style=" border-radius: 4px;"><a style=" border-radius: 4px; color:#f9f9f9;"
-        href="{{ url_for('home') }}">Restart</a></button>
 <script type='text/javascript' src="{{ url_for('static', filename='js/jquery.js')}}"></script>
 <script type='text/javascript' src="{{ url_for('static', filename='js/d3.js')}}"></script>
 <script type='text/javascript' src="{{ url_for('static', filename='js/fornac.js')}}"></script>

@@ -1,52 +1,46 @@
 {% extends 'base.html' %}
 
 {% block script %}
+
+
 <p>This algorithm predicts the best design possible for a Yes gate for a given input and output sequence.</p>
 <ul>
     <li>Either one of the input and output is required for the prediction to work.</li>
-    <li>If input alone is given, then the prediction does not consider any constraints to the predicted structure.
+    <li>If input alone is given, then the prediction does not consider any constraints to the predicted
+        structure.
     </li>
-    <li>If output sequence is given, then the prediction considers the constraints to predict the structure.</li>
+    <li>If output sequence is given, then the prediction considers the constraints to predict the structure.
+    </li>
 </ul>
-<h4>Step 1 : Fill in Input parameters and submit</h4>
-<form name="form" id="form">
-    <!-- inSequence -->
-    <table style="width: 100%;" border="0" cellpadding="2">
-        <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
-            <tr>
-                <td style="text-align: left;"><label for="inpSequence"></label>
-                    <div style="text-decoration: none;">a. Input sequence</div>
-                </td>
-                <td style="width: 10%; text-align: center; color:#f9f9f9;">
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div style="width:100%;">
-        <textarea name="inpSequence" id="inpSequence" rows="5" style="width:100%"></textarea>
-    </div>
-    <!-- outSequence -->
-    <table style="width: 100%;" border="0" cellpadding="2">
-        <tbody style="background-color: rgb(16, 63, 0); border-radius: 4px; color:#f9f9f9;">
-            <tr>
-                <td style="text-align: left;"><label for="outSequence"></label>
-                    <div style="text-decoration: none;">b. Output Seqeunce</div>
-                </td>
-                <td style="width: 10%; text-align: center; color:#f9f9f9;">
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div style="width:100%;">
-        <textarea name="outSequence" id="outSequence" rows="5" style="width:100%"></textarea>
-    </div>
-    <br>
-    <input style=" border-radius: 4px; color:#f9f9f9; border-radius: 4px; background-color: rgb(16, 63, 0);"
-        type="submit"></input>
-    <input style=" border-radius: 4px; color:#f9f9f9; background-color: #5e5e5e; border-radius: 4px;"
-        type="reset"></input>
-</form>
-<span id="result"></span>
+<div class="form-header">
+    <h4>Step 1 : Fill in Input parameters and submit</h4>
+</div>
+<div class="form-content">
+    <form name="form" id="form">
+        <div class="form-group">
+            <label for="inpSequence">a. Input sequence</label>
+            <br>
+            <textarea type="text" id="inpSequence" name="inpSequence" cols="3"></textarea>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="outSequence">b. Output Seqeunce</label>
+            <br>
+            <textarea type="text" id="outSequence" name="outSequence" cols="3"></textarea>
+        </div>
+        <br>
+        <div class="form-button-group">
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+            <div class="form-reset">
+                <button type="reset" >Reset</button>
+            </div>
+        </div>
+    </form>
+    <span id="result"></span>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
     function submit(ev) {
@@ -59,7 +53,7 @@
                 if (response.status == 'success') {
                     window.location.replace('/output/' + response.jobID);
                 } else {
-                        alert('there was an error!');
+                    alert('there was an error!');
                 }
             }
         }).done(showSubmitted());
@@ -70,5 +64,62 @@
     }
 
     $('#form').on('submit', submit);
+
+    $(document).ready(function () {
+        var panelOne = $('.form-panel.two').height(),
+            panelTwo = $('.form-panel.two')[0].scrollHeight;
+
+        $('.form-panel.two').not('.form-panel.two.active').on('click', function (e) {
+            e.preventDefault();
+
+            $('.form-toggle').addClass('visible');
+            $('.form-panel.one').addClass('hidden');
+            $('.form-panel.two').addClass('active');
+            $('.form').animate({
+                'height': panelTwo
+            }, 200);
+        });
+
+        $('.form-toggle').on('click', function (e) {
+            e.preventDefault();
+            $(this).removeClass('visible');
+            $('.form-panel.one').removeClass('hidden');
+            $('.form-panel.two').removeClass('active');
+            $('.form').animate({
+                'height': panelOne
+            }, 200);
+        });
+    });
 </script>
+
+{% endblock %}
+{% block register %}
+<div class="form-panel two">
+    <div class="form-header">
+        <h1>Register Account</h1>
+    </div>
+    <div class="form-content">
+        <form>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required="required" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required="required" />
+            </div>
+            <div class="form-group">
+                <label for="cpassword">Confirm Password</label>
+                <input type="password" id="cpassword" name="cpassword" required="required" />
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required="required" />
+            </div>
+            <div class="form-group">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

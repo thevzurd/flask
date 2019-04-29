@@ -1,6 +1,7 @@
 import random
 ## https://www.pluralsight.com/guides/running-shell-commands-with-flask
 ## Install Vienna RNA in <virtual environment>/Scripts folder
+## Install pip install pyScss
 import os
 import subprocess
 from js_example import converter as cv

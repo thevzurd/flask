@@ -1,20 +1,24 @@
 <!doctype html>
-<title>Yes Gate Design Prediction using HHR Co-Folding Algorithm</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css')}}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/sakura-earthly.css')}}">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<style>
-  form {
-    display: block;
-  }
 
-  form>* {
-    padding-right: 1em;
-  }
-</style>
-<hr>
-<p>
-  <h1>Hammer Head RNA Design Prediction using Co-Folding Algorithm</h1>
-</p>
-<hr>
-{% block script %}{% endblock %}
+<head>
+  <meta charset="UTF-8">
+  <title>Yes Gate Design Prediction using HHR Co-Folding Algorithm</title>
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sakura-earthly.css')}}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+  <link rel='stylesheet prefetch'
+    href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons'>
+</head>
+
+<body>
+  <div class="form">
+    <div class="form-toggle"></div>
+    <div class="form-panel one">
+      <div class="form-header">
+        <h1>Hammer Head RNA Design Prediction using Co-Folding Algorithm</h1>
+      </div>
+      {% block script %}{% endblock %}
+    </div>
+  </div>
+</body>
