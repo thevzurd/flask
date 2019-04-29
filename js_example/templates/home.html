@@ -13,7 +13,7 @@
     </li>
 </ul>
 <div class="form-header">
-    <h4>Step 1 : Fill in Input parameters and submit</h4>
+    <h2>Step 1 : Fill in Input parameters and submit</h2>
 </div>
 <div class="form-content">
     <form name="form" id="form">
@@ -34,11 +34,17 @@
                 <button type="submit">Submit</button>
             </div>
             <div class="form-reset">
-                <button type="reset" >Reset</button>
+                <button type="reset">Reset</button>
             </div>
         </div>
     </form>
-    <span id="result"></span>
+    <div id="result" class="form-button-group" style="justify-content: flex-start; align-items: center; display: none">
+        <div class="loader"></div>
+        <div style="padding: 15px;">
+            <h4>Processing... Please wait...</h4>
+        </div>
+    </div>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -60,7 +66,7 @@
     }
 
     function showSubmitted() {
-        $('#result').text('Processing... Please wait');
+        $('#result').css('display','flex');
     }
 
     $('#form').on('submit', submit);

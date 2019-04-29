@@ -3,7 +3,7 @@
 {% block script %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fornac.css')}}" media="screen" />
 <div class="form-header">
-    <h4>Step 3 : Validated Outputs</h4>
+    <h2>Step 3 : Validated Outputs</h2>
 </div>
 <div class="form-content">
     <!-- input/output -->
@@ -116,7 +116,6 @@
     }
 
     var activeContainer = new FornaContainer("#active", { 'applyForce': false });
-    console.log('{{active}}');
     var activeOptions = {
         'structure': '{{active}}',
         'sequence': '{{sequence}}'
@@ -125,7 +124,6 @@
     activeContainer.addRNA(activeOptions.structure, activeOptions);
 
     var inactiveContainer = new FornaContainer("#inactive", { 'applyForce': false });
-
     var inactiveOptions = {
         'structure': '{{inactive}}',
         'sequence': '{{sequence}}'

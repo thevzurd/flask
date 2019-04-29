@@ -186,6 +186,25 @@ body {
   margin: 10px auto 10px;
   overflow: hidden;
 }
+.line{
+  width: 100%;
+  border-bottom: 2px solid darkblue;
+  position: relative;
+  }
+
+  .loader {
+    border: 5px solid  rgba(0, 0, 0, 0.1); /* Light grey */
+    border-top: 5px solid #3498db; /* Blue */
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 .two .form-group button {
   background: #FFFFFF;
   color: #4285F4;
