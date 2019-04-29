@@ -1,49 +1,11 @@
-JavaScript Ajax Example
-=======================
-
-Demonstrates how to post form data and process a JSON response using
-JavaScript. This allows making requests without navigating away from the
-page. Demonstrates using |XMLHttpRequest|_, |fetch|_, and
-|jQuery.ajax|_. See the `Flask docs`_ about jQuery and Ajax.
-
-.. |XMLHttpRequest| replace:: ``XMLHttpRequest``
-.. _XMLHttpRequest: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
-
-.. |fetch| replace:: ``fetch``
-.. _fetch: https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch
-
-.. |jQuery.ajax| replace:: ``jQuery.ajax``
-.. _jQuery.ajax: https://api.jquery.com/jQuery.ajax/
-
-.. _Flask docs: http://flask.pocoo.org/docs/patterns/jquery/
-
-
-Install
--------
-
-::
-
-    $ python3 -m venv venv
-    $ . venv/bin/activate
-    $ pip install -e .
-
-
-Run
----
-
-::
-
-    $ export FLASK_APP=js_example
-    $ flask run
-
-Open http://127.0.0.1:5000 in a browser.
-
-
-Test
-----
-
-::
-
-    $ pip install -e '.[test]'
-    $ coverage run -m pytest
-    $ coverage report
+1.  To install the server, first copy the contents of js_example in a directory.
+2.  Install a python virtual environment in js_exmaple. http://flask.pocoo.org/docs/1.0/installation/
+3.  Install Vienna RNA in <virtual environment>/Scripts folder.
+4.  Set the virtual environment variables $env:FLASK_ENV="development" for debug mode. Default is production.
+5.  Set the startup app in $env:FLASK_APP = "__init__.py".
+6.  Run <virtual environment>/Scripts/activate to activate the virtual environment.
+7.  Run flask (python -m flask run in Windows) to run the flask app.
+8.  The html pages are present in templates folder. Base is the base template.
+9.  The CSS and JS for our pages and forna is present in static folder.
+10. The different pages and route information is present in "views.py".
+11. The output file is written in J<timestamp>.output file. If you give the same name in the URL as http://localhost:5000/output/J<timestamp>, you can see the output results.
